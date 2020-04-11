@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Modal } from 'antd';
+import { Form, Input, Modal, message } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -10,13 +10,22 @@ interface CreateFormProps {
 }
 
 const CreateForm: React.FC<CreateFormProps> = (props) => {
-  const [form] = Form.useForm();
-
   const { modalVisible, onSubmit: handleAdd, onCancel } = props;
+  const [form] = Form.useForm();
   const okHandle = async () => {
-    const fieldsValue = await form.validateFields();
+    const item = await form.validateFields().then(
+      (store) => {
+        return (Array.isArray(store) ? store : [store]).find((i: { desc: string }) =>
+          i.hasOwnProperty('desc'),
+        );
+      },
+      (err) => {
+        message.error(err);
+        return null;
+      },
+    );
     form.resetFields();
-    handleAdd(fieldsValue);
+    handleAdd({ desc: item.desc });
   };
   return (
     <Modal
