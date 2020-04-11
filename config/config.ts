@@ -165,6 +165,12 @@ export default defineConfig({
                   component: './list/table-list',
                 },
                 {
+                  name: 'table-list-model',
+                  icon: 'smile',
+                  path: '/list/table-list-model',
+                  component: './list/table-list-model',
+                },
+                {
                   name: 'basic-list',
                   icon: 'smile',
                   path: '/list/basic-list',
