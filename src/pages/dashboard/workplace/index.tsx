@@ -42,7 +42,7 @@ interface WorkplaceProps {
   projectNotice: NoticeType[];
   activities: ActivitiesType[];
   radarData: RadarDataType[];
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   currentUserLoading: boolean;
   projectLoading: boolean;
   activitiesLoading: boolean;

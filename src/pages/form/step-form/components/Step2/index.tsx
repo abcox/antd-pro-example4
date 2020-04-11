@@ -14,7 +14,7 @@ const formItemLayout = {
 };
 interface Step2Props {
   data?: StateType['step'];
-  dispatch?: Dispatch<any>;
+  dispatch?: Dispatch;
   submitting?: boolean;
 }
 

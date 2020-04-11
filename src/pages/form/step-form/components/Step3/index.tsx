@@ -6,7 +6,7 @@ import styles from './index.less';
 
 interface Step3Props {
   data?: StateType['step'];
-  dispatch?: Dispatch<any>;
+  dispatch?: Dispatch;
 }
 
 const Step3: React.FC<Step3Props> = (props) => {

@@ -14,7 +14,7 @@ const nullSelectItem: LabeledValue = {
 };
 
 interface GeographicViewProps {
-  dispatch?: Dispatch<any>;
+  dispatch?: Dispatch;
   province?: GeographicItemType[];
   city?: GeographicItemType[];
   value?: {

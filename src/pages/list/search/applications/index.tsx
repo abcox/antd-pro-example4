@@ -43,7 +43,7 @@ export function formatWan(val: number) {
 }
 
 interface ApplicationsProps {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   listAndsearchAndapplications: StateType;
   loading: boolean;
 }

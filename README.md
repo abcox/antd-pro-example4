@@ -18,6 +18,11 @@ or
 yarn
 ```
 
+## Change History Notes
+
+- remove extra work: ListTableList
+- fix Dispatch<any>
+
 ## Provided Scripts
 
 Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.

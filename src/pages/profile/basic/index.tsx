@@ -43,7 +43,7 @@ const progressColumns = [
 
 interface BasicProps {
   loading: boolean;
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   profileAndbasic: BasicProfileDataType;
 }
 interface BasicState {

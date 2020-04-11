@@ -50,7 +50,7 @@ const tableData = [
 ];
 
 interface AdvancedFormProps {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   submitting: boolean;
 }
 

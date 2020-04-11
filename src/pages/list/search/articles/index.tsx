@@ -15,7 +15,7 @@ const FormItem = Form.Item;
 const pageSize = 5;
 
 interface ArticlesProps {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   listAndsearchAndarticles: StateType;
   loading: boolean;
 }

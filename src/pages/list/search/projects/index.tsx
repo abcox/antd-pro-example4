@@ -14,7 +14,7 @@ const FormItem = Form.Item;
 const { Paragraph } = Typography;
 
 interface ProjectsProps {
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   listAndsearchAndprojects: StateType;
   loading: boolean;
 }

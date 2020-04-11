@@ -16,7 +16,7 @@ const formItemLayout = {
 };
 interface Step1Props {
   data?: StateType['step'];
-  dispatch?: Dispatch<any>;
+  dispatch?: Dispatch;
 }
 
 const Step1: React.FC<Step1Props> = (props) => {

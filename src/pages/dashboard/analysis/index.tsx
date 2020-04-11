@@ -22,7 +22,7 @@ type RangePickerValue = RangePickerProps<moment.Moment>['value'];
 
 interface AnalysisProps {
   dashboardAndanalysis: AnalysisData;
-  dispatch: Dispatch<any>;
+  dispatch: Dispatch;
   loading: boolean;
 }
 
