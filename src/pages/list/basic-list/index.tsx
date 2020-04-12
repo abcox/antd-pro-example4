@@ -114,10 +114,10 @@ export const BasicList: FC<BasicListProps> = (props) => {
     if (key === 'edit') showEditModal(currentItem);
     else if (key === 'delete') {
       Modal.confirm({
-        title: '删除任务',
-        content: '确定删除该任务吗？',
-        okText: '确认',
-        cancelText: '取消',
+        title: 'Delete task',
+        content: 'Are you sure you want to delete this item?',
+        okText: 'Yes',
+        cancelText: 'No',
         onOk: () => deleteItem(currentItem.id),
       });
     }
@@ -140,13 +140,13 @@ export const BasicList: FC<BasicListProps> = (props) => {
     <Dropdown
       overlay={
         <Menu onClick={({ key }) => editAndDelete(key, item)}>
-          <Menu.Item key="edit">编辑</Menu.Item>
-          <Menu.Item key="delete">删除</Menu.Item>
+          <Menu.Item key="edit">Edit</Menu.Item>
+          <Menu.Item key="delete">Delete</Menu.Item>
         </Menu>
       }
     >
       <a>
-        更多 <DownOutlined />
+        More <DownOutlined />
       </a>
     </Dropdown>
   );
@@ -216,7 +216,7 @@ export const BasicList: FC<BasicListProps> = (props) => {
               ref={addBtn}
             >
               <PlusOutlined />
-              添加
+              Add to
             </Button>
 
             <List
@@ -235,7 +235,7 @@ export const BasicList: FC<BasicListProps> = (props) => {
                         showEditModal(item);
                       }}
                     >
-                      编辑
+                      Edit
                     </a>,
                     <MoreBtn key="more" item={item} />,
                   ]}

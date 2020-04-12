@@ -2,11 +2,12 @@ import { DownOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Divider, Dropdown, Menu, message } from 'antd';
 import React, { useState, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
+import ProTable, { ProColumns, ActionType, createIntl, IntlProvider } from '@ant-design/pro-table';
 import CreateForm from './components/CreateForm';
 import UpdateForm, { FormValueType } from './components/UpdateForm';
 import { TableListItem } from './data.d';
 import { queryRule, updateRule, addRule, removeRule } from './service';
+import { formatMessage } from 'umi';
 
 /**
  * 添加节点
@@ -72,6 +73,44 @@ const handleRemove = async (selectedRows: TableListItem[]) => {
   }
 };
 
+// https://protable.ant.design/intl
+const enUSIntl = createIntl('en_US', {
+  tableForm: {
+    search: 'Query',
+    reset: 'Reset',
+    submit: 'Submit',
+    collapsed: 'Expand',
+    expand: 'Collapse',
+    inputPlaceholder: 'Please enter',
+    selectPlaceholder: 'Please select',
+  },
+  alert: {
+    clear: 'Clear',
+  },
+  tableToolBar: {
+    leftPin: 'Pin to left',
+    rightPin: 'Pin to right',
+    noPin: 'Unpinned',
+    leftFixedTitle: 'Fixed the left',
+    rightFixedTitle: 'Fixed the right',
+    noFixedTitle: 'Not Fixed',
+    reset: 'Reset',
+    columnDisplay: 'Column Display',
+    columnSetting: 'Settings',
+    fullScreen: 'Full Screen',
+    exitFullScreen: 'Exit Full Screen',
+    reload: 'Refresh',
+    density: 'Scale',
+    densityDefault: 'Default',
+    densityLarger: 'Large',
+    densityMiddle: 'Medium',
+    densitySmall: 'Compact',
+  },
+  tableColumnSorter: {
+    caretUp: 'Sort Ascend',
+  },
+});
+
 const TableList: React.FC<{}> = () => {
   const [createModalVisible, handleModalVisible] = useState<boolean>(false);
   const [updateModalVisible, handleUpdateModalVisible] = useState<boolean>(false);
@@ -79,11 +118,11 @@ const TableList: React.FC<{}> = () => {
   const actionRef = useRef<ActionType>();
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '规则名称',
+      title: formatMessage({ id: 'title.name' }),
       dataIndex: 'name',
     },
     {
-      title: '描述',
+      title: formatMessage({ id: 'title.desc' }),
       dataIndex: 'desc',
     },
     {
@@ -120,10 +159,10 @@ const TableList: React.FC<{}> = () => {
               setStepFormValues(record);
             }}
           >
-            配置
+            Edit
           </a>
           <Divider type="vertical" />
-          <a href="">订阅警报</a>
+          <a href="">Action</a>
         </>
       ),
     },
@@ -131,49 +170,51 @@ const TableList: React.FC<{}> = () => {
 
   return (
     <PageHeaderWrapper>
-      <ProTable<TableListItem>
-        headerTitle="查询表格"
-        actionRef={actionRef}
-        rowKey="key"
-        toolBarRender={(action, { selectedRows }) => [
-          <Button icon={<PlusOutlined />} type="primary" onClick={() => handleModalVisible(true)}>
-            新建
-          </Button>,
-          selectedRows && selectedRows.length > 0 && (
-            <Dropdown
-              overlay={
-                <Menu
-                  onClick={async (e) => {
-                    if (e.key === 'remove') {
-                      await handleRemove(selectedRows);
-                      action.reload();
-                    }
-                  }}
-                  selectedKeys={[]}
-                >
-                  <Menu.Item key="remove">批量删除</Menu.Item>
-                  <Menu.Item key="approval">批量审批</Menu.Item>
-                </Menu>
-              }
-            >
-              <Button>
-                批量操作 <DownOutlined />
-              </Button>
-            </Dropdown>
-          ),
-        ]}
-        tableAlertRender={({ selectedRowKeys, selectedRows }) => (
-          <div>
-            已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项&nbsp;&nbsp;
-            <span>
-              服务调用次数总计 {selectedRows.reduce((pre, item) => pre + item.callNo, 0)} 万
-            </span>
-          </div>
-        )}
-        request={(params) => queryRule(params)}
-        columns={columns}
-        rowSelection={{}}
-      />
+      <IntlProvider value={enUSIntl}>
+        <ProTable<TableListItem>
+          headerTitle="Inquiry form"
+          actionRef={actionRef}
+          rowKey="key"
+          toolBarRender={(action, { selectedRows }) => [
+            <Button icon={<PlusOutlined />} type="primary" onClick={() => handleModalVisible(true)}>
+              新建
+            </Button>,
+            selectedRows && selectedRows.length > 0 && (
+              <Dropdown
+                overlay={
+                  <Menu
+                    onClick={async (e) => {
+                      if (e.key === 'remove') {
+                        await handleRemove(selectedRows);
+                        action.reload();
+                      }
+                    }}
+                    selectedKeys={[]}
+                  >
+                    <Menu.Item key="remove">批量删除</Menu.Item>
+                    <Menu.Item key="approval">批量审批</Menu.Item>
+                  </Menu>
+                }
+              >
+                <Button>
+                  批量操作 <DownOutlined />
+                </Button>
+              </Dropdown>
+            ),
+          ]}
+          tableAlertRender={({ selectedRowKeys, selectedRows }) => (
+            <div>
+              已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项&nbsp;&nbsp;
+              <span>
+                服务调用次数总计 {selectedRows.reduce((pre, item) => pre + item.callNo, 0)} 万
+              </span>
+            </div>
+          )}
+          request={(params) => queryRule(params)}
+          columns={columns}
+          rowSelection={{}}
+        />
+      </IntlProvider>
       <CreateForm
         onSubmit={async (value) => {
           const success = await handleAdd(value);
