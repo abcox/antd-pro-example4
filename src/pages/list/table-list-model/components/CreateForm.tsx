@@ -30,7 +30,7 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title="新建规则"
+      title="New rule"
       visible={modalVisible}
       onOk={okHandle}
       onCancel={() => onCancel()}
@@ -39,11 +39,17 @@ const CreateForm: React.FC<CreateFormProps> = (props) => {
         <FormItem
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 15 }}
-          label="描述"
+          label="description"
           name="desc"
-          rules={[{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }]}
+          rules={[
+            {
+              required: true,
+              message: 'Please enter a rule description of at least five characters!',
+              min: 5,
+            },
+          ]}
         >
-          <Input placeholder="请输入" />
+          <Input placeholder="Enter description" />
         </FormItem>
       </Form>
     </Modal>

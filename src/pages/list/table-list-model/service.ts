@@ -2,7 +2,9 @@ import request from 'umi-request';
 import { TableListParams } from './data.d';
 
 export async function queryRule(params?: TableListParams) {
-  return request('/api/rule', {
+  const url = '/api/rule';
+  // console.log(`${queryRule} url: `, url);
+  return request(url, {
     params,
   });
 }
